@@ -28,19 +28,17 @@ public class KafkaMessagePayload {
     private Object model;
     private String modelId;
 
-    public Object getModel() {
-        return model;
+    public KafkaMessagePayload(Object model, String modelId) {
+        this.model = model;
+        this.modelId = modelId;
     }
 
-    public void setModel(Object model) {
-        this.model = model;
+    public Object getModel() {
+        return model;
     }
 
     public String getModelId() {
         return modelId;
     }
 
-    public void setModelId(String modelId) {
-        this.modelId = modelId;
-    }
 }

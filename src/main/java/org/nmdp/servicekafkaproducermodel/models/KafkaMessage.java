@@ -33,35 +33,31 @@ public class KafkaMessage extends Message {
     private String messageProductionLocation;
     private KafkaMessagePayload payload;
 
-    public Date getMessageGenerationDateTime() {
-        return messageGenerationDateTime;
+    public KafkaMessage(Date messageGenerationDateTime, String messageId,
+        String messageProductionLocation, KafkaMessagePayload payload) {
+        this.messageGenerationDateTime = messageGenerationDateTime;
+        this.messageId = messageId;
+        this.messageProductionLocation = messageProductionLocation;
+        this.payload = payload;
     }
 
-    public void setMessageGenerationDateTime(Date messageGenerationDateTime) {
-        this.messageGenerationDateTime = messageGenerationDateTime;
+    public Date getMessageGenerationDateTime() {
+        return messageGenerationDateTime;
     }
 
     public String getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
-    }
-
     public String getMessageProductionLocation() {
         return messageProductionLocation;
-    }
-
-    public void setMessageProductionLocation(String messageProductionLocation) {
-        this.messageProductionLocation = messageProductionLocation;
     }
 
     public KafkaMessagePayload getPayload() {
         return payload;
     }
 
-    public void setPayload(KafkaMessagePayload payload) {
-        this.payload = payload;
+    public byte[] toBinary() {
+        return super.toBinary(this);
     }
 }

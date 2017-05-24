@@ -1,7 +1,7 @@
 package org.nmdp.servicekafkaproducermodel.models;
 
 /**
- * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 5/19/17.
+ * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 5/24/17.
  * <p>
  * service-kafka-producer-model
  * Copyright (c) 2012-2017 National Marrow Donor Program (NMDP)
@@ -24,23 +24,27 @@ package org.nmdp.servicekafkaproducermodel.models;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-public class KafkaMessagePayload {
-    private Object model;
-    private String modelId;
+import org.apache.log4j.Logger;
 
-    public Object getModel() {
-        return model;
-    }
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 
-    public void setModel(Object model) {
-        this.model = model;
-    }
+abstract class Message {
 
-    public String getModelId() {
-        return modelId;
-    }
+    private static final Logger LOG = Logger.getLogger(KafkaMessage.class);
 
-    public void setModelId(String modelId) {
-        this.modelId = modelId;
+    protected byte[] toBinary(Object obj) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] array = new byte[0];
+
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+            objectOutputStream.writeObject(obj);
+            array = byteArrayOutputStream.toByteArray();
+        } catch (Exception ex) {
+            LOG.error("Error converting object to byte[].", ex);
+        }
+
+        return array;
     }
 }

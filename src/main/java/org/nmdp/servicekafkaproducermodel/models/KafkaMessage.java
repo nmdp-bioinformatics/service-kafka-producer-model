@@ -24,33 +24,44 @@ package org.nmdp.servicekafkaproducermodel.models;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.apache.kafka.clients.producer.ProducerRecord;
+import java.util.Date;
 
-import org.apache.log4j.Logger;
+public class KafkaMessage extends Message {
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
+    private Date messageGenerationDateTime;
+    private String messageId;
+    private String messageProductionLocation;
+    private KafkaMessagePayload payload;
 
-public class KafkaMessage<K, V> {
-
-    private static final Logger LOG = Logger.getLogger(KafkaMessage.class);
-
-    public ProducerRecord<byte[], byte[]> convert(String topic, K key, V value) {
-        return new ProducerRecord<>(topic, toBinary(key), toBinary(value));
+    public Date getMessageGenerationDateTime() {
+        return messageGenerationDateTime;
     }
 
-    private byte[] toBinary(Object obj) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] array = new byte[0];
+    public void setMessageGenerationDateTime(Date messageGenerationDateTime) {
+        this.messageGenerationDateTime = messageGenerationDateTime;
+    }
 
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(obj);
-            array = byteArrayOutputStream.toByteArray();
-        } catch (Exception ex) {
-            LOG.error("Error converting object to byte[].", ex);
-        }
+    public String getMessageId() {
+        return messageId;
+    }
 
-        return array;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getMessageProductionLocation() {
+        return messageProductionLocation;
+    }
+
+    public void setMessageProductionLocation(String messageProductionLocation) {
+        this.messageProductionLocation = messageProductionLocation;
+    }
+
+    public KafkaMessagePayload getPayload() {
+        return payload;
+    }
+
+    public void setPayload(KafkaMessagePayload payload) {
+        this.payload = payload;
     }
 }

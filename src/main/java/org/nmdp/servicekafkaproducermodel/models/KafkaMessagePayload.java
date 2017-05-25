@@ -24,7 +24,9 @@ package org.nmdp.servicekafkaproducermodel.models;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-public class KafkaMessagePayload {
+import java.io.Serializable;
+
+public class KafkaMessagePayload implements Serializable {
     private Object model;
     private String modelId;
 

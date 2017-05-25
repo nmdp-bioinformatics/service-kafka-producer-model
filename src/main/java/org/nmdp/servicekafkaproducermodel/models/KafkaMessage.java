@@ -24,9 +24,10 @@ package org.nmdp.servicekafkaproducermodel.models;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class KafkaMessage extends Message {
+public class KafkaMessage extends Message implements Serializable {
 
     private Date messageGenerationDateTime;
     private String messageId;

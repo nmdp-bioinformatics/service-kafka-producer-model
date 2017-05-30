@@ -46,6 +46,10 @@ public class KafkaMessage extends Message implements Serializable {
     private String messageProductionLocation;
     private JsonNode payload;
 
+    public KafkaMessage() {
+
+    }
+
     public KafkaMessage(Date messageGenerationDateTime, String messageId,
         String messageProductionLocation, KafkaMessagePayload payload) throws IOException {
         this.messageGenerationDateTime = messageGenerationDateTime;

@@ -7,7 +7,7 @@
     <groupId>org.nmdp</groupId>
     <artifactId>service-kafka-producer-model</artifactId>
     <packaging>jar</packaging>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.8.1-SNAPSHOT</version>
 
     <name>service-kafka-producer</name>
     <description>Kafka Message Model</description>

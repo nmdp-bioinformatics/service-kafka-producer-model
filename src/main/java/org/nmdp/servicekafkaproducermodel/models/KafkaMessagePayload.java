@@ -33,17 +33,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class KafkaMessagePayload implements Serializable {
-    private Object model;
+public class KafkaMessagePayload<T> implements Serializable {
+    private T model;
     private String modelId;
 
-    public KafkaMessagePayload(Object model, String modelId) {
+    public KafkaMessagePayload(T model, String modelId) {
         this.model = model;
         this.modelId = modelId;
     }
 
     @JsonProperty("model")
-    public Object getModel() {
+    public T getModel() {
         return model;
     }
 

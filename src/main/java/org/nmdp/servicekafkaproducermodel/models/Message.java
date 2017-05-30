@@ -24,6 +24,9 @@ package org.nmdp.servicekafkaproducermodel.models;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.apache.log4j.Logger;
 
 import java.io.ByteArrayOutputStream;
@@ -46,5 +49,12 @@ abstract class Message {
         }
 
         return array;
+    }
+
+    protected String toJson(Object obj) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        return gson.toJson(obj);
     }
 }

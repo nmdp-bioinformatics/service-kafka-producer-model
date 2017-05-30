@@ -61,4 +61,8 @@ public class KafkaMessage extends Message implements Serializable {
     public byte[] toBinary() {
         return super.toBinary(this);
     }
+
+    public String toJson() {
+        return super.toJson(this);
+    }
 }

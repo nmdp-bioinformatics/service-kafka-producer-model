@@ -26,6 +26,13 @@ package org.nmdp.servicekafkaproducermodel.models;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(Include.NON_EMPTY)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class KafkaMessagePayload implements Serializable {
     private Object model;
     private String modelId;
@@ -35,12 +42,24 @@ public class KafkaMessagePayload implements Serializable {
         this.modelId = modelId;
     }
 
+    @JsonProperty("model")
     public Object getModel() {
         return model;
     }
 
+    @JsonProperty("modelId")
     public String getModelId() {
         return modelId;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + ((model == null) ? 0 : model.hashCode());
+        result = prime * result + ((modelId == null) ? 0 : modelId.hashCode());
+
+        return result;
+    }
 }

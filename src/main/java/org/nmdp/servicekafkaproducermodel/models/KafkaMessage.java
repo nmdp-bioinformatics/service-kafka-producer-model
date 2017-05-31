@@ -24,27 +24,16 @@ package org.nmdp.servicekafkaproducermodel.models;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
-@JsonInclude(Include.NON_EMPTY)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class KafkaMessage extends Message implements Serializable {
 
-    private static final ThreadLocal<ObjectMapper> OBJECT_MAPPER = ThreadLocal.withInitial(ObjectMapper::new);
     private Date messageGenerationDateTime;
     private String messageId;
     private String messageProductionLocation;
-    private JsonNode payload;
+    private KafkaMessagePayload payload;
 
     public KafkaMessage() {
 
@@ -55,27 +44,23 @@ public class KafkaMessage extends Message implements Serializable {
         this.messageGenerationDateTime = messageGenerationDateTime;
         this.messageId = messageId;
         this.messageProductionLocation = messageProductionLocation;
-        this.payload = OBJECT_MAPPER.get().readTree(OBJECT_MAPPER.get().writeValueAsString(payload));
+        this.payload = payload;
     }
 
-    @JsonProperty("messageGenerationDateTime")
     public Date getMessageGenerationDateTime() {
         return messageGenerationDateTime;
     }
 
-    @JsonProperty("messageId")
     public String getMessageId() {
         return messageId;
     }
 
-    @JsonProperty("messageProductionLocation")
     public String getMessageProductionLocation() {
         return messageProductionLocation;
     }
 
-    @JsonProperty("payload")
-    public KafkaMessagePayload getPayload() throws JsonProcessingException, IOException {
-        return (KafkaMessagePayload) OBJECT_MAPPER.get().reader(KafkaMessagePayload.class).readValue(payload);
+    public KafkaMessagePayload getPayload() {
+        return payload;
     }
 
     public byte[] toBinary() {
